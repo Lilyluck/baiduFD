@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="BDW"
+  id="myeclipse.1458543384631"
+  context-root="/BDW"
+  j2ee-spec="6.0"
+  archive="BDW.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
