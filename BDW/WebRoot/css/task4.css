@@ -1,0 +1,31 @@
+.box {
+	width: 400px;
+	height: 200px;
+	background-color: #CCC;
+	margin: auto;
+	position: absolute;
+	top: 10px;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: hidden;
+}
+
+.circle {
+	width: 100px;
+	height: 100px;
+	background-color: #fc0;
+	border-radius: 50%;
+}
+
+.left {
+	position: absolute;
+	left: -50px;
+	top: -50px;
+}
+
+.right {
+	position: absolute;
+	right: -50px;
+	bottom: -50px;
+}
