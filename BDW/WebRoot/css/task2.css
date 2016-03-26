@@ -10,6 +10,9 @@ body{
 	margin:0px; 
 	background-color: #dedede;
 }
+.width{
+	min-width: 1200px;
+}
 /*µ¼º½*/
 header{
 	margin: 0px;

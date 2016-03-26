@@ -8,6 +8,7 @@ body{
     font-family:"SimHei","Microsoft Yahei","Arial";
     color:#666;
     background: #eeedec;
+    min-width: 1275px;
 }
 table { 
     border-collapse: collapse; 
@@ -45,4 +46,8 @@ a{
      font-family:"SimHei","Microsoft Yahei","Arial";
     text-decoration: none;
     color:#333;
+}
+
+.bg{
+	background: #fff;
 }
