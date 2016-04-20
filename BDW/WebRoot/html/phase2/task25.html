@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>树形组件</title>
+<style type="text/css">
+span {
+	margin: 0;
+	padding: 0;
+}
+
+#tree-module {
+	display: inline-block;
+	width: 400px;
+	position: relative;
+	left: 50%;
+	margin-left: -200px;
+}
+
+#clear {
+	margin-left: 10px;
+}
+
+#result {
+	font-size: 14px;
+	font-family: "Microsoft YaHei UI";
+	text-align: center;
+	height: 16px;
+}
+
+/* 以下是结点部分的样式 */
+.nodebody-visible {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	margin: 5px 18px;
+	background-color: #ffffff;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.nodebody-hidden {
+	display: none;
+}
+
+.arrow {
+	display: inline-block;
+	margin-right: 6px;
+}
+
+.right-arrow {
+	width: 0;
+	height: 0;
+	border-left: 10px solid #6898c2;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	cursor: pointer;
+}
+
+.down-arrow {
+	width: 0;
+	height: 0;
+	border-top: 10px solid #6898c2;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	cursor: pointer;
+}
+
+.empty-arrow {
+	border-left: 10px solid transparent;
+}
+
+.node-title {
+	font-family: "Microsoft YaHei UI";
+	font-size: 14px;
+	color: #6898c2;
+	line-height: 1.5em;
+}
+
+.node-title:hover {
+	color: blue;
+	cursor: pointer;
+}
+
+.node-title-highlight {
+	color: red;
+	font-weight: bold;
+}
+
+.addIcon,.deleteIcon {
+	display: none;
+	vertical-align: top;
+}
+
+.addIcon:hover,.deleteIcon:hover {
+	cursor: pointer;
+}
+
+.node-header:hover>.addIcon,.node-header:hover>.deleteIcon {
+	display: inline;
+}
+
+br {
+	clear: both;
+}
+
+legend {
+	font-family: "黑体";
+	font-size: 20px;
+}
+
+.root,fieldset {
+	float: left;
+}
+</style>
+</head>
+
+<body>
+	<fieldset id="tree-module">
+		<legend>树形组件</legend>
+		<input type="text" id="searchText" />&nbsp;
+		<button id="search">搜索</button>
+		<button id="clear">清除</button>
+		<br>
+		<p id="result"></p>
+		<div id="tree-area">
+			<div class="nodebody-visible">
+				<label class="node-header"><div class="arrow empty-arrow"></div>
+					<span class="node-title">前端攻城狮</span><span>&nbsp;&nbsp;</span><img
+					class="addIcon" src="../../img/task25/add.png"> <img class="deleteIcon"
+					src="../../img/task25/delete.png"> </label>
+			</div>
+		</div>
+	</fieldset>
+	<script src="../../js/phase2/js/task25.js"></script>
+</body>
+</html>
