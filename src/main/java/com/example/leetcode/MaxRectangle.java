@@ -6,6 +6,8 @@ import com.example.leetcode.node.TrieNode;
 import java.util.*;
 
 /**
+ * @author green
+ * @Description 面试题 17.25. 单词矩阵
  * 定一份单词的清单，设计一个算法，创建由字母组成的面积最大的矩形，
  * 其中每一行组成一个单词(自左向右)，
  * 每一列也组成一个单词(自上而下)。
@@ -23,8 +25,6 @@ import java.util.*;
  * "real",
  * "hard"
  * ]
- *
- * @author green
  */
 public class MaxRectangle {
     TreeMap<Integer, Set<String>> map = new TreeMap<>(Comparator.reverseOrder());

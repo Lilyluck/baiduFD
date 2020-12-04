@@ -7,7 +7,8 @@ import java.math.RoundingMode;
 import java.util.*;
 
 /**
- * 面试题 17.26. 稀疏相似度
+ * @author green
+ * @Description 面试题 17.26. 稀疏相似度
  * 两个(具有不同单词的)文档的交集(intersection)中元素的个数除以并集(union)中元素的个数，就是这两个文档的相似度。
  * 例如，{1, 5, 3} 和 {1, 7, 2, 3} 的相似度是 0.4，其中，交集的元素有 2 个，并集的元素有 5 个。
  * 给定一系列的长篇文档，每个文档元素各不相同，并与一个 ID 相关联。它们的相似度非常“稀疏”，也就是说任选 2 个文档，相似度都很接近 0。
@@ -33,8 +34,6 @@ import java.util.*;
  * "0,2: 0.1000",
  * "2,3: 0.1429"
  * ]
- *
- * @author green
  */
 public class ComputeSimilarities {
     /**
