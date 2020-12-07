@@ -2,10 +2,6 @@ package com.example.leetcode;
 
 import com.alibaba.fastjson.JSON;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author green
  * @Description 面试题 17.24. 最大子矩阵
@@ -28,72 +24,53 @@ import java.util.Map;
  * ]
  * 输出：[0,1,0,1]
  * 解释：输入中标粗的元素即为输出所表示的矩阵
+ * <p>
+ * 二维转一维，再比较每个一维中的最大的子序列
+ *
+ * @url https://leetcode-cn.com/problems/max-submatrix-lcci/
  */
 public class MaxMatrix {
-    int max = Integer.MIN_VALUE;
-    int[] ans = new int[4];
-    int temp[];
+
     public int[] solution(int[][] matrix) {
+        int max = Integer.MIN_VALUE;
+        int[] ans = new int[4];
         //多少组数据
         int rowLength = matrix.length;
         //每组数据的个数
         int colLength = matrix[0].length;
-        temp = new int[colLength];
+
         //每行数据
         for (int i = 0; i < rowLength; i++) {
-            getMaxMatrix(matrix[i], i, i);
-            int[] tempSum = Arrays.copyOf(matrix[i], colLength);
-            for (int j = i + 1; j < rowLength; j++) {
+            int[] tempSum = new int[colLength];
+            for (int j = i; j < rowLength; j++) {
+                //每一列的和的最大子序列
+                int start = 0;
+                int sum = 0;
                 for (int k = 0; k < colLength; k++) {
                     tempSum[k] = tempSum[k] + matrix[j][k];
+                    if (sum < 0) {
+                        sum = tempSum[k];
+                        start = k;
+                    } else {
+                        sum = sum + tempSum[k];
+                    }
+                    if (max <= sum) {
+                        max = sum;
+                        ans[0] = i;
+                        ans[1] = start;
+                        ans[2] = j;
+                        ans[3] = k;
+                    }
                 }
-                getMaxMatrix(tempSum, i, j);
             }
         }
 
         return ans;
     }
 
-    public void getMaxMatrix(int[] sub, Integer rowStartIndex, Integer rowEndIndex) {
-        int[] subMaxMatrix = getSubMaxMatrix(sub);
-        if (subMaxMatrix[0] > max) {
-            max = subMaxMatrix[0];
-            //开始和结束行号
-            ans[0] = rowStartIndex;
-            ans[1] = subMaxMatrix[1];
-            ans[2] = rowEndIndex;
-            ans[3] = subMaxMatrix[2];
-        }
-    }
-
-    public int[] getSubMaxMatrix(int[] nums) {
-        temp[0] = nums[0];
-        int max = nums[0];
-        int end = 0;
-        //开始下标
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(0, 0);
-        for (int i = 1; i < nums.length; i++) {
-            int num = temp[i - 1] + nums[i];
-            if (num < nums[i]) {
-                temp[i] = nums[i];
-                map.put(i, i);
-            } else {
-                temp[i] = num;
-                map.put(i, map.get(i - 1));
-            }
-            if (max <= temp[i]) {
-                max = temp[i];
-                end = i;
-            }
-        }
-        return new int[]{max, map.get(end), end};
-    }
-
-
     public static void main(String[] args) {
-//        int[][] nums = {{9, -8, 1, 3, -2},{-3, 7, 6, -2, 4},{6, -4, -4, 8, -7}};
-//        int[][] nums = {{-1, -2, -9, 6},{8, -9, -3, -6},{2, 9, -7, -6}};
+        int[][] nums1 = {{9, -8, 1, 3, -2}, {-3, 7, 6, -2, 4}, {6, -4, -4, 8, -7}};
+        int[][] nums2 = {{-1, -2, -9, 6}, {8, -9, -3, -6}, {2, 9, -7, -6}};
         int[][] nums = {{450, 309, 460, -155, 337, -335, 45, -220, -209, 352, -348, -448, 412, 37, 155, -283, 493, -500, -116, -260, -443, 40, -235, 400, 468, 400, 446, 186, -84, 196, -363, -252, -193, -110, -26, -124, 116, -210, -374, -69, 142, 137, 316, 136, -73, 393, 388, -188, 37, 41, 286, -93, -107, 80, -125, -486, 119, 197, -333, 409},
                 {376, 369, -16, -364, 183, 427, 161, -115, 173, 117, -494, 21, 59, 286, -470, 377, -291, 200, 162, -344, -430, 313, 246, -255, -48, 357, 112, -98, 393, -460, -335, -79, -413, -281, -380, 315, 367, -446, 87, -77, 351, -165, -495, -338, -341, 196, 445, 431, 119, 331, 121, 118, -355, -381, -350, -127, 394, -339, 264, -247},
                 {-263, -117, 67, 207, 344, 404, -338, 311, -313, 411, 285, 70, 193, -185, 434, 459, 363, -458, -73, -235, 261, -403, -332, -405, -498, -283, 393, -122, 143, 226, 147, -316, 147, -308, -111, -36, 474, -317, 214, -423, -119, 245, 314, -80, 83, 61, -376, 475, -477, 354, 258, -416, 476, -262, -110, 399, 102, 333, -54, 334},
@@ -144,10 +121,19 @@ public class MaxMatrix {
                 {-169, 27, -478, -185, 54, -116, -263, -290, -430, -416, 138, 33, -47, -46, 354, 171, -83, -271, -291, -219, 159, -489, 316, 333, -368, -385, -335, -13, -424, 117, 22, 327, 362, -109, 230, -425, -294, -471, 211, 100, 476, -210, 332, -67, -255, 102, 440, -424, -19, 193, -56, 1, 11, -137, -291, 165, 424, -377, -219, 235},
                 {286, 220, 433, 258, -150, -269, 134, 190, 223, 152, -142, -30, -135, 49, 80, -266, 397, -67, -225, 116, -83, 20, -139, 169, -156, -379, 363, 32, 413, 144, 274, -313, 372, 495, 260, -334, 324, -463, -149, 213, 463, 59, -356, -354, 250, 228, -167, -75, -227, -480, -122, -278, -354, 452, 351, -332, -43, -277, -231, -294},
                 {-115, 348, 344, 175, -247, 49, -131, -236, 118, 340, -243, 107, -309, 290, -132, 233, 431, 80, 109, -86, -195, -320, 339, 173, 4, -131, 246, -34, 271, -375, -477, -246, 300, -48, -430, 369, -126, -488, 217, -106, 252, -157, -195, 17, 398, -414, -143, -481, -51, 109, -460, 316, 337, -394, -272, -164, -183, 336, 28, -197}};
-
+        int[][] nums4 = {{-4, -5}};
         MaxMatrix maxMatrix = new MaxMatrix();
+        int[] solution1 = maxMatrix.solution(nums1);
+        System.out.println(JSON.toJSONString(solution1));
+
+        int[] solution2 = maxMatrix.solution(nums2);
+        System.out.println(JSON.toJSONString(solution2));
+
         int[] solution = maxMatrix.solution(nums);
         System.out.println(JSON.toJSONString(solution));
+
+        int[] solution4 = maxMatrix.solution(nums4);
+        System.out.println(JSON.toJSONString(solution4));
 //
 //        int[] sss = {6, -4, -4, 8, -7};
 //        int[] sss = {-777, -80, -670, 619, -56, 2239, 1078, -1463, -4579, 1884, -1275, 1797, 273, -1261, 52, -1854, 133, -1642, -2318, -1957, -1638, -2344, -3947, 742, -1992, -2360, -3897, 1385, -1355, 1155, 1134, 692, -220, 4200, -173, -1622, 491, 3564, 434, 2489, 619, 1163, 2012, 2589, 316, -3338, -1453, -346, 3031, -563, 928, 23, 112, 4279, -2103, -1071, 1967, 2731, -4050, -1293};

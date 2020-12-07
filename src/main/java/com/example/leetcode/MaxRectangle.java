@@ -25,6 +25,8 @@ import java.util.*;
  * "real",
  * "hard"
  * ]
+ *
+ * @url https://leetcode-cn.com/problems/word-rectangle-lcci/
  */
 public class MaxRectangle {
     TreeMap<Integer, Set<String>> map = new TreeMap<>(Comparator.reverseOrder());
